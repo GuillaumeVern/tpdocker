@@ -1,0 +1,50 @@
+# services:
+#   mysql:
+#     image: mysql:5.7
+#     container_name: mysql
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: azerty2qwerty
+#       MYSQL_DATABASE: wordpress
+#       MYSQL_USER: wordpress
+#       MYSQL_PASSWORD: wordpress
+#     ports:
+#       - 3306:3306
+#     volumes:
+#       - ./mysql:/var/lib/mysql
+
+#   phpmyadmin:
+#     image: phpmyadmin/phpmyadmin
+#     container_name: phpmyadmin
+#     ports:
+#       - 8080:80
+#     restart: always
+#     environment:
+#       PMA_HOST: mysql
+#       PMA_PORT: 3306
+#       MYSQL_ROOT_PASSWORD: azerty2qwerty
+#     depends_on:
+#       - mysql
+#     links:
+#       - mysql
+
+services:
+  web:
+    image: wbitt/network-multitool
+    networks:
+      - frontend
+    command: sleep 3600
+  app:
+    image: wbitt/network-multitool
+    networks:
+      - frontend
+      - backend
+    command: sleep 3600
+  db:
+    image: wbitt/network-multitool
+    networks:
+      - backend
+    command: sleep 3600
+networks:
+  frontend:
+  backend:
